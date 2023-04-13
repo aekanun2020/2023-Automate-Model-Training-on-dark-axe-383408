@@ -1,4 +1,3 @@
-Aekanun Thongtae
 pipeline {
     agent any
 
