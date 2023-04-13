@@ -15,7 +15,7 @@ from airflow.utils.dates import days_ago
 from google.cloud import secretmanager
 import os
 
-PROJECT_ID = "skilful-boulder-381002"
+PROJECT_ID = "dark-axe-383408"
 CLUSTER_NAME = "aekanun-arrdelay-regressionmodel"
 REGION = "us-east1"
 ZONE = "us-east1-a"
