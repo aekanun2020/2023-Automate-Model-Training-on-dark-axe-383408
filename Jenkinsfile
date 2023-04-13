@@ -1,37 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        google_cloud_key_file = 'project-owner-google-cloud-key-file'
+        google_cloud_composer_environment = 'airflow-from-jenkins'
+        google_cloud_composer_location = 'us-central1'
+        google_cloud_project_id = 'dark-axe-383408'
+    }
+
     stages {
-        stage('Checkout') {
+        stage('Trigger Google Cloud Composer') {
             steps {
-                git url: 
-'https://github.com/aekanun2020/2023-Automate-Model-Training-on-dark-axe-383408.git'
-            }
-        }
-
-        stage('Run Google Cloud Composer') {
-            steps {
-                script {
-                    // Replace with your Google Cloud project ID and location.
-                    def projectId = 'dark-axe-383408'
-                    def location = 'us-central1'
-                    def composerEnvironment = 'airflow-from-jenkins'
-
-                    // Authenticate with Google Cloud.
-                    withCredentials([file(credentialsId: 
-'project-owner-google-cloud-key-file', variable: 'keyFile')]) {
-                        sh 'gcloud auth activate-service-account 
---key-file=${keyFile}'
-                    }
-
-                    // Configure gcloud project.
-                    sh "gcloud config set project ${projectId}"
-                    sh "gcloud config set composer/location ${location}"
-
-                    // Trigger the DAG.
-                    sh "gcloud composer environments run ${composerEnvironment} 
-trigger_dag -- DAG-automateML_Notification"
-                }
+                echo 'Activating Google Cloud Service Account and triggering Cloud Composer 
+DAG...'
+                sh '''
+                gcloud auth activate-service-account --key-file=${google_cloud_key_file}
+                gcloud config set project ${google_cloud_project_id}
+                gcloud composer environments run ${google_cloud_composer_environment} 
+--location=${google_cloud_composer_location} trigger_dag -- --dag_id=automateML_Notification
+                '''
             }
         }
     }
