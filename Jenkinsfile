@@ -17,11 +17,12 @@ pipeline {
                 withCredentials([file(credentialsId: 'dark-axe-383408', variable: 'google_cloud_key_file')]) {
                     sh '''gcloud auth activate-service-account --key-file="${google_cloud_key_file}"'''
                     sh '''gcloud config set project "${google_cloud_project_id}"'''
-                    sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --image-version=composer-1.20.10-airflow-2.4.3 --machine-type=n1-standard-2 --node-count=3 --python-version=3 --project="${google_cloud_project_id}" --zone="${google_cloud_composer_zone}" --disk-size="${google_cloud_composer_disk_size}" --disk-type="${google_cloud_composer_disk_type}"'''
+                    sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --image-version=composer-1.20.10-airflow-2.4.3 --machine-type=n1-standard-1 --node-count=3 --python-version=3 --project="${google_cloud_project_id}" --zone="${google_cloud_composer_zone}" --disk-size="${google_cloud_composer_disk_size}"'''
                     sh '''gcloud composer environments run "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" trigger_dag -- --dag_id=automateML_Notification'''
                 }
             }
         }
     }
 }
+
 
