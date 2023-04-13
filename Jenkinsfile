@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        google_cloud_key_file = 'credentials/dark-axe-383408-a928f511742a.json'
         google_cloud_composer_environment = 'airflow-from-jenkins'
         google_cloud_composer_location = 'us-central1'
         google_cloud_project_id = 'dark-axe-383408'
@@ -12,12 +11,15 @@ pipeline {
         stage('Trigger Google Cloud Composer') {
             steps {
                 echo 'Activating Google Cloud Service Account and triggering Cloud Composer DAG...'
-                sh '''gcloud auth activate-service-account --key-file="${google_cloud_key_file}"'''
-                sh '''gcloud config set project "${google_cloud_project_id}"'''
-		sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}"'''
-                sh '''gcloud composer environments run "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" trigger_dag -- 
+                withCredentials([file(credentialsId: 'dark-axe-383408', variable: 'google_cloud_key_file')]) {
+                    sh '''gcloud auth activate-service-account --key-file="${google_cloud_key_file}"'''
+                    sh '''gcloud config set project "${google_cloud_project_id}"'''
+                    sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}"'''
+                    sh '''gcloud composer environments run "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" trigger_dag -- 
 --dag_id=automateML_Notification'''
+                }
             }
         }
     }
 }
+
