@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        google_cloud_key_file = 'credentials/dark-axe-383408.json'
+        google_cloud_key_file = 'credentials/dark-axe-383408-a928f511742a.json'
         google_cloud_composer_environment = 'airflow-from-jenkins'
         google_cloud_composer_location = 'us-central1'
         google_cloud_project_id = 'dark-axe-383408'
