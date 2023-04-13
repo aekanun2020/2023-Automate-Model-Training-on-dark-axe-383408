@@ -14,7 +14,7 @@ pipeline {
                 script {
                     // Replace with your Google Cloud project ID and location.
                     def projectId = 'dark-axe-383408'
-                    def location = 'us-central1-a'
+                    def location = 'us-central1'
                     def composerEnvironment = 'airflow-from-jenkins'
 
                     // Authenticate with Google Cloud.
