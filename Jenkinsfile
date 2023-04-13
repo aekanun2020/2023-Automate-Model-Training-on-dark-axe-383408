@@ -27,13 +27,10 @@ pipeline {
                 withCredentials([file(credentialsId: 'dark-axe-383408', variable: 'google_cloud_key_file')]) {
                     sh '''gcloud auth activate-service-account --key-file="${google_cloud_key_file}"'''
                     sh '''gcloud config set project "${google_cloud_project_id}"'''
-                    sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" 
---image-version=composer-1.20.10-airflow-2.4.3 --machine-type=n1-standard-1 --node-count=3 --python-version=3 --project="${google_cloud_project_id}" 
---zone=us-central1-a --disk-size=30GB'''
+                    sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --image-version=composer-1.20.10-airflow-2.4.3 --machine-type=n1-standard-1 --node-count=3 --python-version=3 --project="${google_cloud_project_id}" --zone=us-central1-a --disk-size=30GB'''
 
                     script {
-                        env.gcs_bucket_name = sh(script: 'gcloud composer environments describe "${google_cloud_composer_environment}" 
---location="${google_cloud_composer_location}" --format="value(config.dagGcsPrefix)"', returnStdout: true).trim().split('/')[2]
+                        env.gcs_bucket_name = sh(script: 'gcloud composer environments describe "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --format="value(config.dagGcsPrefix)"', returnStdout: true).trim().split('/')[2]
                     }
 
                     echo 'Uploading DAG file to the Cloud Composer environment...'
