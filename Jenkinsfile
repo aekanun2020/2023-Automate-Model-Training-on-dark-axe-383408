@@ -33,6 +33,10 @@ pipeline {
                         env.gcs_bucket_name = sh(script: 'gcloud composer environments describe "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --format="value(config.dagGcsPrefix)"', returnStdout: true).trim().split('/')[2]
                     }
 
+                    echo 'Uploading Python files to Google Cloud Storage...'
+                    sh '''gsutil cp G-Student.py gs://${gcs_bucket_name}/scripts/'''
+                    sh '''gsutil cp refinedzone_H-Student.py gs://${gcs_bucket_name}/scripts/'''
+
                     echo 'Uploading DAG file to the Cloud Composer environment...'
                     sh '''gsutil cp DAG-automateML_Notification.py gs://${gcs_bucket_name}/dags/'''
                 }
