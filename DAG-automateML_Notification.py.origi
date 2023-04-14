@@ -19,16 +19,8 @@ PROJECT_ID = "dark-axe-383408"
 CLUSTER_NAME = "aekanun-arrdelay-regressionmodel"
 REGION = "us-east1"
 ZONE = "us-east1-a"
-
-from airflow.models import Variable
-
-GCS_BUCKET_NAME = Variable.get("gcs_bucket_name")
-
-PYSPARK_URI_MSSQL_TO_HDFS = f"gs://{GCS_BUCKET_NAME}/dags/scripts/G-Student.py"
-PYSPARK_URI_HDFS_TO_MODEL = f"gs://{GCS_BUCKET_NAME}/dags/scripts/refinedzone_H-Student.py"
-
-#PYSPARK_URI_MSSQL_TO_HDFS = "gs://airflow18mar2023/G-Student.py"
-#PYSPARK_URI_HDFS_TO_MODEL = "gs://airflow18mar2023/refinedzone_H-Student.py"
+PYSPARK_URI_MSSQL_TO_HDFS = "gs://airflow18mar2023/G-Student.py"
+PYSPARK_URI_HDFS_TO_MODEL = "gs://airflow18mar2023/refinedzone_H-Student.py"
 
 YESTERDAY = datetime.datetime.now() - datetime.timedelta(days=1)
 
