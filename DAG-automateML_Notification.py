@@ -20,24 +20,8 @@ CLUSTER_NAME = "aekanun-arrdelay-regressionmodel"
 REGION = "us-east1"
 ZONE = "us-east1-a"
 
-from google.cloud import storage
-
-def get_system_bucket(project_id):
-    client = storage.Client(project=project_id)
-    bucket_prefix = f"{project_id}-composer-"
-    for bucket in client.list_buckets():
-        if bucket.name.startswith(bucket_prefix):
-            return bucket.name
-    raise ValueError(f"No system bucket found for project: {project_id}")
-
-GCS_BUCKET_NAME = get_system_bucket(PROJECT_ID)
-
-PYSPARK_URI_MSSQL_TO_HDFS = f"gs://{GCS_BUCKET_NAME}/dags/scripts/G-Student.py"
-PYSPARK_URI_HDFS_TO_MODEL = f"gs://{GCS_BUCKET_NAME}/dags/scripts/refinedzone_H-Student.py"
-
-
-#PYSPARK_URI_MSSQL_TO_HDFS = "gs://airflow18mar2023/G-Student.py"
-#PYSPARK_URI_HDFS_TO_MODEL = "gs://airflow18mar2023/refinedzone_H-Student.py"
+PYSPARK_URI_MSSQL_TO_HDFS = "gs://airflow13apr2023/G-Student.py"
+PYSPARK_URI_HDFS_TO_MODEL = "gs://airflow13apr2023/refinedzone_H-Student.py"
 
 YESTERDAY = datetime.datetime.now() - datetime.timedelta(days=1)
 
