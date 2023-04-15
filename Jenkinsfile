@@ -30,7 +30,7 @@ pipeline {
                     sh '''gcloud config set project "${google_cloud_project_id}"'''
 
                     script {
-                        env.composer_environment_exists = sh(script: 'gcloud composer environments list --project="${google_cloud_project_id}" --location="${google_cloud_composer_location}" --filter="name:${google_cloud_composer_environment}" --format="value(name)"', returnStdout: true).trim()
+                        env.composer_environment_exists = sh(script: 'gcloud composer environments list --project="${google_cloud_project_id}" --locations="${google_cloud_composer_location}" --filter="name:${google_cloud_composer_environment}" --format="value(name)"', returnStdout: true).trim()
                         if (env.composer_environment_exists == '') {
                             echo 'Creating Cloud Composer environment...'
                             sh '''gcloud composer environments create "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" --image-version=composer-1.20.10-airflow-2.4.3 --machine-type=n1-standard-1 --node-count=3 --python-version=3 --project="${google_cloud_project_id}" --zone=us-central1-a --disk-size=30GB'''
