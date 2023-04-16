@@ -50,20 +50,10 @@ pipeline {
                     echo 'Uploading DAG file to the Cloud Composer environment...'
                     sh '''gsutil cp DAG-automateML_Notification.py gs://${gcs_bucket_name}/dags/'''
 
-                    script {
-                        env.dag_running = sh(script: 'gcloud composer environments run "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" list_dag_runs -- --state=running --filter="dag_id:automateML_Notification" --format="value(state)"',returnStdout: true).trim()
-                        if (env.dag_running == 'running') {
-                            echo 'DAG automateML_Notification is currently running. Waiting for it to finish...'
-                            while (env.dag_running == 'running') {
-                                sleep(time: 1, unit: 'MINUTES')
-                                env.dag_running = sh(script: 'gcloud composer environments run "${google_cloud_composer_environment}" --location="${google_cloud_composer_location}" list_dag_runs -- --state=running --filter="dag_id:automateML_Notification" --format="value(state)"', returnStdout: true).trim()
-                                }
-                        } else {
-                            echo 'DAG automateML_Notification is not running. Proceeding with the pipeline...'
-                        }
-                    }
+                    
                 }
             }
         }
     }
 }
+
