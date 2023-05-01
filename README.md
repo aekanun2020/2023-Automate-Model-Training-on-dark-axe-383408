@@ -1,4 +1,4 @@
-# Project Title: Automate Model Training
+# Project Title: Automate Model Training using DevOps
 
 This project automates the process of model training using Jenkins, Google Cloud Composer (Airflow), and PySpark. The main 
 file in this repository is a `Jenkinsfile`, which outlines the pipeline that checks out the Git repository, creates (or 
