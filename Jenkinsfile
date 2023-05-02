@@ -5,7 +5,7 @@ pipeline {
         google_cloud_composer_environment = 'airflow-from-jenkins'
         google_cloud_composer_location = 'us-central1'
         google_cloud_project_id = 'dark-axe-383408'
-        git_repo_url = 'https://github.com/aekanun2020/2023-Automate-Model-Training-on-dark-axe-383408.git'
+        git_repo_url = 'https://github.com/aekanun2020/2023-Automate-Model-Training-using-DevOps.git'
         git_branch = 'main'
         pyspark_bucket_name = 'airflow13apr2023'
     }
