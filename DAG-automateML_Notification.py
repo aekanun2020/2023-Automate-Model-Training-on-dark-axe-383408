@@ -15,13 +15,13 @@ from airflow.utils.dates import days_ago
 from google.cloud import secretmanager
 import os
 
-PROJECT_ID = "dark-axe-383408"
+PROJECT_ID = "iot-class-feb2017"
 CLUSTER_NAME = "aekanun-arrdelay-regressionmodel"
 REGION = "us-east1"
 ZONE = "us-east1-a"
 
-PYSPARK_URI_MSSQL_TO_HDFS = "gs://airflow13apr2023/G-Student.py"
-PYSPARK_URI_HDFS_TO_MODEL = "gs://airflow13apr2023/refinedzone_H-Student.py"
+PYSPARK_URI_MSSQL_TO_HDFS = "gs://production-mlmodeling/G-Student.py"
+PYSPARK_URI_HDFS_TO_MODEL = "gs://production-mlmodeling/refinedzone_H-Student.py"
 
 YESTERDAY = datetime.datetime.now() - datetime.timedelta(days=1)
 
