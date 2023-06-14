@@ -25,7 +25,7 @@ pipeline {
         stage('Trigger Google Cloud Composer') {
             steps {
                 echo 'Activating Google Cloud Service Account and triggering Cloud Composer DAG...'
-                withCredentials([file(credentialsId: 'dark-axe-383408', variable: 'google_cloud_key_file')]) {
+                withCredentials([file(credentialsId: 'iot-class-feb2017', variable: 'google_cloud_key_file')]) {
                     sh '''gcloud auth activate-service-account --key-file="${google_cloud_key_file}"'''
                     sh '''gcloud config set project "${google_cloud_project_id}"'''
 
