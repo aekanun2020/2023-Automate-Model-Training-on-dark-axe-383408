@@ -31,3 +31,6 @@ read_result_df = spark.read.format("jdbc")        .option("url", url)         .o
 
 
 read_result_df.write.mode('overwrite').parquet('/rawzone/')
+
+
+
